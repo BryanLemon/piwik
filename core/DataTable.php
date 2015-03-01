@@ -343,11 +343,13 @@ class DataTable implements DataTableInterface, \IteratorAggregate, \ArrayAccess
 
     /**
      * @ignore
+     * does not update the summary row!
      */
     public function setRows($rows)
     {
         unset($this->rows);
         $this->rows = $rows;
+        $this->indexNotUpToDate = true;
     }
 
     /**
@@ -762,6 +764,14 @@ class DataTable implements DataTableInterface, \IteratorAggregate, \ArrayAccess
         } else {
             return $this->rows + array(self::ID_SUMMARY_ROW => $this->summaryRow);
         }
+    }
+
+    /**
+     * @ignore
+     */
+    public function getRowsWithoutSummaryRow()
+    {
+        return $this->rows;
     }
 
     /**
